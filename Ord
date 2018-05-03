@@ -1,0 +1,22 @@
+public class Ord {
+  String tekst;
+  int telleord = 1;
+  public Ord(String tekst2) {
+    this.tekst = tekst2;
+  } // Konstruktør.
+  public String toString() {
+    return tekst;
+  } // Returnerer ordet.
+  public int hentAntallOrdet() {
+    return telleord;
+  } // For å hente hvor mange ganger ordet forekommer.
+  public void okAntallOrdet() {
+    telleord++;
+  } // Registrerer at ordet forekom igjen.
+  public int hentLengdenOrdet() {
+    return tekst.length();
+  } // Returnerer hvor langt ordet er.
+  public int hvorMyePlassOrdet() {
+    return telleord*tekst.length();
+  } // Returnerer hvor mye plass ordet tar.
+}
