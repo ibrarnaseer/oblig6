@@ -1,0 +1,25 @@
+public class Scarlet {
+  public static void main(String[] args) throws Exception {
+    Ordliste liste = new Ordliste();
+    liste.bok("scarlet.txt");
+    // Leser inn teksten/boka.
+    System.out.println("\na) Antall ulike ord i dokumentet er: " + liste.antallUlikeOrd() + ".");
+    System.out.println("\nb) Ordet/navnet Watson forekommer " + liste.hvorMangeForekomster("Watson") + " gang/er.");
+    System.out.println("\nc) Ordet elementary forekommer " + liste.hvorMangeForekomster("elementary") + " gang/er.");
+    System.out.println("\nd) De 5 vanligste ordene i dokumentet er: ");
+    // Alle deloppgavene, A til G.
+    Ord[] vanligste = liste.oftest5Ord();
+    for (int i = 0; i < 5; i++) {
+      System.out.println("   '" + vanligste[i].toString() + "'");
+    } // For å finne de fem vanligste ordene
+
+    System.out.println("\ne) Det lengste ordet som forekommer i dokumentet er: "
+    + "'" + liste.finnLengsteOrd() + "'" + ".");
+
+    System.out.println("\nf) Det korteste ordet som forekommer i dokumentet er: "
+    + "'" + liste.finnKortesteOrd() + "'" + ". (usikker på hvorfor denne er tom)");
+
+    System.out.println("\ng) Det ordet som tar opp mest plass i dokumentet er: "
+    + "'" + liste.mestPlassDokumentet() + "'" + ".");
+  }
+}
