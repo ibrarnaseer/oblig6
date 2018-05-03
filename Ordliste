@@ -1,0 +1,105 @@
+import java.io.*;
+import java.util.*;
+
+public class Ordliste {
+  ArrayList<Ord> ordliste = new ArrayList<Ord>();
+
+  public void bok(String filnavn) throws Exception {
+    Scanner fil = new Scanner(new File(filnavn));
+    while(fil.hasNextLine()) {
+      addNyttOrd(fil.nextLine());
+    }
+  } // Leser alle ordene i boka og adder dem i ordlista.
+
+  public void addNyttOrd(String ord) {
+    if(finnOrd(ord) == null) {
+      ordliste.add(new Ord(ord));
+    }
+    else {
+      finnOrd(ord).okAntallOrdet();
+    }
+  } /* Enten adder et nytt ord i ordlista,
+    ellers hvis det er der fra før, øker antallet. */
+
+  public Ord finnOrd(String ord9001) {
+    for(Ord ord2 : ordliste) {
+      if (ord2.toString().equalsIgnoreCase(ord9001)) {
+        return ord2;
+      }
+    }
+    return null;
+  } // Finner og returnerer et gitt ord "ord9001" i ordlista.
+
+  public int antallUlikeOrd() {
+    return ordliste.size();
+  } // Finner og returnerer antall ulike ord i ordlista.
+
+  public int hvorMangeForekomster(String ord9001) {
+    Ord sokEtterOrdet = finnOrd(ord9001);
+    if(sokEtterOrdet != null) {
+      return sokEtterOrdet.hentAntallOrdet();
+    }
+    else {
+      System.out.println("Ordet er ikke i ordlisten.");
+      return 0;
+    }
+  } // Finner ut hvor mange ganger ordet "ord9001" forekommer i ordlista.
+
+  public Ord[] oftest5Ord() {
+    Ord[] femOftestOrd = new Ord[5];
+    for(int i = 0; i < 5; i++) {
+      int hoyeste = ordliste.get(0).hentAntallOrdet();
+      for(int j = 0; j < ordliste.size(); j++) {
+        if(ordliste.get(j).hentAntallOrdet()+1 > hoyeste) {
+          boolean ord3 = false;
+          for(int k = 0; k < 5; k++) {
+            if(ordliste.get(j) == femOftestOrd[k]) {
+              ord3 = true;
+              break;
+            }
+          }
+          if (ord3 == false) {
+            femOftestOrd[i] = ordliste.get(j);
+            j = ordliste.size();
+          }
+        }
+      }
+    }
+    return femOftestOrd;
+  } // Finner og returnerer de 5 ordene som kommer oftest i boka.
+
+  public Ord finnLengsteOrd() {
+    String lengsteOrd = ordliste.get(0).toString();
+    int k = 0;
+    for(int i= 0; i < ordliste.size(); i++) {
+      if(ordliste.get(i).hentLengdenOrdet() > lengsteOrd.length()) {
+        lengsteOrd = ordliste.get(i).toString();
+        k = i;
+      }
+    }
+    return ordliste.get(k);
+  } // Finner og returnerer det lengste ordet i ordlista.
+
+  public Ord finnKortesteOrd() {
+    String kortesteOrd = ordliste.get(0).toString();
+    int k = 0;
+    for(int i=0; i < ordliste.size(); i++) {
+      if(ordliste.get(i).hentLengdenOrdet() < kortesteOrd.length()) {
+        kortesteOrd = ordliste.get(i).toString();
+        k = i;
+      }
+    }
+    return ordliste.get(k);
+  } // Finner og returnerer det korteste ordet i ordlista.
+
+  public Ord mestPlassDokumentet() {
+    Ord mestPlass = ordliste.get(0);
+    for(int i=1; i < ordliste.size(); i++) {
+      int plass = mestPlass.hentLengdenOrdet()*mestPlass.hentAntallOrdet();
+      if(ordliste.get(i).hentAntallOrdet()*ordliste.get(i).hentLengdenOrdet() > plass) {
+        mestPlass = ordliste.get(i);
+      }
+    }
+    return mestPlass;
+  } // Finner og returnerer det ordet som tar mest plass i dokumentet. 
+}
